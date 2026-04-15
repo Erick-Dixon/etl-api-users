@@ -1,39 +1,40 @@
+from dotenv import load_dotenv
+
 def extrair ():
     import requests
-
+    
     url = "https://jsonplaceholder.typicode.com/users"
-    response = requests.get(url)
-
+    
     try:
         response = requests.get(url)
         if response.status_code != 200:
             print ("Erro na API")
             return []
-
+        
         return response.json()
     except Exception as e:
         print ("Erro",e)
         return []
 
 def transformar (users):
-    users_filtrados = []
-
-    for user in users:
-        users_filtrados.append({
+    return [{
         "name": user["name"],
         "email": user["email"].lower(),
-        "city":user["address"]["city"]
-    })
-    return users_filtrados
+        "city": user["address"]["city"]
+    } for user in users]
 
-def salvar(dados):
-    import json
+def post(dados):
+    import requests
+    url_webhook = "http://localhost:5678/webhook-test/efb76158-df9c-43a0-ab3f-ffbddc9f3366"
+    try:
+        response = requests.post(url_webhook,json=dados)
+        print (f"Status: {response.status_code} - Dados enviados!")
+    except Exception as e:
+        print ("Erro",e)
 
-    with open("output.json","w") as file:
-        json.dump(dados, file, indent=2)
 def main ():
     dados = extrair()
     dados_tratados = transformar(dados)
-    salvar(dados_tratados)
+    post(dados_tratados)
 
 main()
