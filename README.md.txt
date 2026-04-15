@@ -11,7 +11,7 @@ Projeto de Engenharia de Dados focado em automação, transformando dados brutos
 ## Visual do Workflow (n8n)
 ![Fluxo n8n](./caminho-da-sua-imagem.png)
 
-## 🛠️ Tecnologias
+## Tecnologias
 - **Python** (Requests, python-dotenv)
 - **n8n** (Orquestração Low-code)
 - **Google Sheets** (Destino final)
