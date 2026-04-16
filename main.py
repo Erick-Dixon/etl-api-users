@@ -1,4 +1,5 @@
 from dotenv import load_dotenv
+import os
 
 def extrair ():
     import requests
@@ -23,9 +24,11 @@ def transformar (users):
         "city": user["address"]["city"]
     } for user in users]
 
+load_dotenv()
+
 def post(dados):
     import requests
-    url_webhook = "http://localhost:5678/webhook-test/efb76158-df9c-43a0-ab3f-ffbddc9f3366"
+    url_webhook = os.getenv("URL_WEBHOOK")
     try:
         response = requests.post(url_webhook,json=dados)
         print (f"Status: {response.status_code} - Dados enviados!")
